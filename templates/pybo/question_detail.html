@@ -12,6 +12,7 @@
     {% endif %}
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
     <div class="row my-3">
+
         <div class="col-1"> <!-- 추천영역 -->
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">
                 {{question.voter.count}}
@@ -20,7 +21,6 @@
                class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
         </div>
         <div class="col-11"> <!-- 질문영역 -->
-            <!-- 기존 내용 -->
             <div class="card">  <!-- my-3 삭제 -->
                 <div class="card-body">
                     <div class="card-text" style="white-space: pre-line;">{{ question.content }}</div>
@@ -48,6 +48,7 @@
                     {% if question.comment_set.count > 0 %}
                     <div class="mt-3">
                     {% for comment in question.comment_set.all %}
+                        <a name="comment_{{ comment.id }}"></a>
                         <div class="comment py-2 text-muted">
                             <span style="white-space: pre-line;">{{ comment.content }}</span>
                             <span>
@@ -112,9 +113,11 @@
                            data-uri="{% url 'pybo:answer_delete' answer.id  %}">삭제</a>
                     </div>
                     {% endif %}
+                    <!-- 답변 댓글 Start -->
                     {% if answer.comment_set.count > 0 %}
                     <div class="mt-3">
                     {% for comment in answer.comment_set.all %}
+                        <a name="comment_{{ comment.id }}"></a>
                         <div class="comment py-2 text-muted">
                             <span style="white-space: pre-line;">{{ comment.content }}</span>
                             <span>
@@ -172,7 +175,7 @@ $(document).ready(function(){
     });
 
     $(".recommend").on('click', function() {
-        if(confirm("정말로 추천하시겠습니까?\n(추천은 취소 할 수 없습니다.)")) {
+        if(confirm("추천이 완료되었습니다.")) {
             location.href = $(this).data('uri');
         }
     });

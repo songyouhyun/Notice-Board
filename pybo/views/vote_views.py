@@ -20,7 +20,7 @@ def vote_question(request, question_id):
 
 @login_required(login_url='common:login')
 def vote_answer(request, answer_id):
-    answer = get_object_or_404(Question, pk=answer_id)
+    answer = get_object_or_404(Answer, pk=answer_id)
     if request.user == answer.author:
         messages.error(request, '본인이 작성한 글은 추천할 수 없습니다')
     else:
